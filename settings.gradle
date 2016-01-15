@@ -1,1 +1,3 @@
-include ':samples', ':textplug'
+include ':textplug-sample', ':textplug'
+
+rootProject.name = 'textplug-parent'
