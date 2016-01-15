@@ -1,31 +1,25 @@
-#Android Studio
-.gradle
-/local.properties
-.DS_Store
-/build
-/captures
+.classpath
+.project
+.settings
+eclipsebin
 
-
-#Android generated
 bin
 gen
+build
+out
+lib
 
-#Eclipse
-.project
-.classpath
-.settings
-
-#IntelliJ IDEA
 .idea
 *.iml
 classes
 
-#Maven
-target
-release.properties
-pom.xml.*
+obj
 
-#Command line
+.DS_Store
+
+# Gradle
+.gradle
+jniLibs
+build
 local.properties
-build.xml
-proguard-project.txt
+reports
