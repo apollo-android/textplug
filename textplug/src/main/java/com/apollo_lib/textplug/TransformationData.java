@@ -1,21 +1,22 @@
 package com.apollo_lib.textplug;
 
+import android.text.Editable;
 import android.widget.EditText;
 
-public class ChangeInformation {
+public class TransformationData {
     private EditText editText;
-    private String previousText;
-    private String newText;
-    private String newPart;
-    private String previousRawText;
-    private String newRawText;
+    private Editable previousText;
+    private Editable newText;
+    private CharSequence newPart;
+    private Editable previousRawText;
+    private Editable newRawText;
     private int cursorPosition;
     private int newCursorPosition;
     private boolean stop = false;
 
-    public ChangeInformation(EditText editText, String previousText, String newText, String newPart,
-                             String previousRawText, String newRawText, int cursorPosition,
-                             int newCursorPosition) {
+    public TransformationData(EditText editText, Editable previousText, Editable newText, CharSequence newPart,
+                              Editable previousRawText, Editable newRawText, int cursorPosition,
+                              int newCursorPosition) {
 
         this.editText = editText;
         this.previousText = previousText;
@@ -31,23 +32,23 @@ public class ChangeInformation {
         return editText;
     }
 
-    public String getPreviousText() {
+    public Editable getPreviousText() {
         return previousText;
     }
 
-    public String getNewText() {
+    public Editable getNewText() {
         return newText;
     }
 
-    public String getNewPart() {
+    public CharSequence getNewPart() {
         return newPart;
     }
 
-    public String getPreviousRawText() {
+    public Editable getPreviousRawText() {
         return previousRawText;
     }
 
-    public String getNewRawText() {
+    public Editable getNewRawText() {
         return newRawText;
     }
 
@@ -63,7 +64,7 @@ public class ChangeInformation {
         return stop;
     }
 
-    public void setNewText(String newText) {
+    public void setNewText(Editable newText) {
         this.newText = newText;
     }
 
