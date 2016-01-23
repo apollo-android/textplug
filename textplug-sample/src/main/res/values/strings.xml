@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TextPlug Samples</string>
+    <string name="newpart">newPart:</string>
 </resources>

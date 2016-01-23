@@ -7,25 +7,35 @@ public class TransformationData {
     private EditText editText;
     private Editable previousText;
     private Editable newText;
-    private CharSequence newPart;
-    private Editable previousRawText;
-    private Editable newRawText;
-    private int cursorPosition;
+    private String newPart;
+    private String removedPart;
+    private String previousRawText;
+    private String newRawText;
+    private int previousCursorPosition;
     private int newCursorPosition;
-    private boolean stop = false;
+    private boolean stopTransformation = false;
 
-    public TransformationData(EditText editText, Editable previousText, Editable newText, CharSequence newPart,
-                              Editable previousRawText, Editable newRawText, int cursorPosition,
+    private TextPlugManager manager;
+
+    public TransformationData(TextPlugManager manager, EditText editText, Editable previousText,
+                              Editable newText, String removedPart, String newPart,
+                              String previousRawText, String newRawText, int previousCursorPosition,
                               int newCursorPosition) {
 
+        this.manager = manager;
         this.editText = editText;
         this.previousText = previousText;
         this.newText = newText;
         this.newPart = newPart;
+        this.removedPart = removedPart;
         this.previousRawText = previousRawText;
         this.newRawText = newRawText;
-        this.cursorPosition = cursorPosition;
+        this.previousCursorPosition = previousCursorPosition;
         this.newCursorPosition = newCursorPosition;
+    }
+
+    public TextPlugManager getManager() {
+        return manager;
     }
 
     public EditText getEditText() {
@@ -40,35 +50,43 @@ public class TransformationData {
         return newText;
     }
 
-    public CharSequence getNewPart() {
+    public String getNewPart() {
         return newPart;
     }
 
-    public Editable getPreviousRawText() {
+    public String getRemovedPart() {
+        return removedPart;
+    }
+
+    public String getPreviousRawText() {
         return previousRawText;
     }
 
-    public Editable getNewRawText() {
+    public String getNewRawText() {
         return newRawText;
     }
 
-    public int getCursorPosition() {
-        return cursorPosition;
+    public int getPreviousCursorPosition() {
+        return previousCursorPosition;
     }
 
     public int getNewCursorPosition() {
         return newCursorPosition;
     }
 
-    public boolean getStop() {
-        return stop;
-    }
-
     public void setNewText(Editable newText) {
         this.newText = newText;
     }
 
-    public void setStop(boolean stop) {
-        this.stop = stop;
+    public void stopTransformation() {
+        stopTransformation = true;
+    }
+
+    public boolean stoped() {
+        return stopTransformation;
+    }
+
+    public void setCursorPosition(int position) {
+        newCursorPosition = position;
     }
 }
