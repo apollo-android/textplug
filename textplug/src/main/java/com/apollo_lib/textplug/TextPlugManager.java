@@ -42,28 +42,30 @@ public class TextPlugManager implements TextWatcher {
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         removedPart = s.subSequence(start, start + count).toString();
-        previousText = editText.getText();
+        previousText = editableFactory.newEditable(editText.getText());
     }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         editText.removeTextChangedListener(this);
 
-        Editable blank = editableFactory.newEditable("");
-
         int previousCursorPosition = start;
         int newCursorPosition = start + count;
 
         String newPart = s.subSequence(previousCursorPosition, newCursorPosition).toString();
 
-        String newRawText = previousRawText.substring(0, previousCursorPosition) +
-                newPart +
-                previousRawText.substring(previousCursorPosition);
+        String newRawText;
 
         if (!removedPart.isEmpty()) {
-            newRawText = newRawText.substring(0, start) +
-                    newRawText.substring(start + before);
+            newRawText = previousRawText.substring(0, start) +
+                    previousRawText.substring(start + before);
+        } else {
+            newRawText = previousRawText;
         }
+
+        newRawText = newRawText.substring(0, previousCursorPosition) +
+                newPart +
+                newRawText.substring(previousCursorPosition);
 
         Editable newText = editText.getText();
 

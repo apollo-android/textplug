@@ -3,10 +3,13 @@ package com.appolo_lib.textplug_samples;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.apollo_lib.textplug.TextPlugManager;
 import com.apollo_lib.textplug.plugins.LogPlugin;
 import com.apollo_lib.textplug.plugins.WordsPlugin;
+import com.appolo_lib.textplug_samples.plugins.BluePlugin;
+import com.appolo_lib.textplug_samples.plugins.RedPlugin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,14 +22,20 @@ public class MainActivity extends AppCompatActivity {
 
         TextPlugManager manager = new TextPlugManager(editText);
 
-        LogPlugin log = new LogPlugin(
-                LogPlugin.TransformationDataProperty.PreviousRawText,
-                LogPlugin.TransformationDataProperty.NewRawText);
+        LogPlugin log = new LogPlugin();
 
         manager.add(log);
 
-        WordsPlugin words = new WordsPlugin();
+        RedPlugin red = new RedPlugin(
+                (TextView)findViewById(R.id.red_previous),
+                (TextView)findViewById(R.id.red_next));
 
-        manager.add(words);
+        manager.add(red);
+
+        BluePlugin blue = new BluePlugin(
+                (TextView)findViewById(R.id.blue_previous),
+                (TextView)findViewById(R.id.blue_next));
+
+        manager.add(blue);
     }
 }

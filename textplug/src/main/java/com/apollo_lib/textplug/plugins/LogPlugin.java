@@ -66,8 +66,6 @@ public class LogPlugin implements TextPlugin {
             Log.i(TAG, "NewCursorPosition: " + data.getNewCursorPosition());
         }
 
-        data.stopTransformation();
-
         return data;
     }
 }

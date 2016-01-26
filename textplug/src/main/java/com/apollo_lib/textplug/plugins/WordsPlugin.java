@@ -11,10 +11,6 @@ public class WordsPlugin implements TextPlugin{
     @Override
     public TransformationData transform(TransformationData data) {
         Log.d(TAG, "Transform");
-
-        data.getNewText().append(".");
-        data.setCursorPosition(data.getNewCursorPosition() + 1);
-
         return data;
     }
 }
