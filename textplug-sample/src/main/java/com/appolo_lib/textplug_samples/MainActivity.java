@@ -7,9 +7,7 @@ import android.widget.TextView;
 
 import com.apollo_lib.textplug.TextPlugManager;
 import com.apollo_lib.textplug.plugins.LogPlugin;
-import com.apollo_lib.textplug.plugins.WordsPlugin;
-import com.appolo_lib.textplug_samples.plugins.BluePlugin;
-import com.appolo_lib.textplug_samples.plugins.RedPlugin;
+import com.appolo_lib.textplug_samples.plugins.DotPlugin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,16 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         manager.add(log);
 
-        RedPlugin red = new RedPlugin(
-                (TextView)findViewById(R.id.red_previous),
-                (TextView)findViewById(R.id.red_next));
+        DotPlugin dot = new DotPlugin(this);
 
-        manager.add(red);
-
-        BluePlugin blue = new BluePlugin(
-                (TextView)findViewById(R.id.blue_previous),
-                (TextView)findViewById(R.id.blue_next));
-
-        manager.add(blue);
+        manager.add(dot);
     }
 }

@@ -13,10 +13,9 @@ public class TextPlugManager implements TextWatcher {
     private List<TextPlugin> plugins;
 
     private Editable previousText;
-    private String previousRawText;
     private Editable.Factory editableFactory;
     private String removedPart;
-
+    private int newCursorPosition;
 
     public TextPlugManager(EditText editText) {
         this.editText = editText;
@@ -25,8 +24,6 @@ public class TextPlugManager implements TextWatcher {
         editText.addTextChangedListener(this);
 
         editableFactory = Editable.Factory.getInstance();
-
-        previousRawText = editText.getText().toString();
     }
 
     public TextPlugManager add(TextPlugin pluging) {
@@ -49,23 +46,16 @@ public class TextPlugManager implements TextWatcher {
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         editText.removeTextChangedListener(this);
 
-        int previousCursorPosition = start;
-        int newCursorPosition = start + count;
+        int previousCursorPosition = newCursorPosition;
+        newCursorPosition = start + count;
 
-        String newPart = s.subSequence(previousCursorPosition, newCursorPosition).toString();
+        String newPart;
 
-        String newRawText;
-
-        if (!removedPart.isEmpty()) {
-            newRawText = previousRawText.substring(0, start) +
-                    previousRawText.substring(start + before);
+        if (start < newCursorPosition) {
+            newPart = s.subSequence(start, newCursorPosition).toString();
         } else {
-            newRawText = previousRawText;
+            newPart = "";
         }
-
-        newRawText = newRawText.substring(0, previousCursorPosition) +
-                newPart +
-                newRawText.substring(previousCursorPosition);
 
         Editable newText = editText.getText();
 
@@ -76,8 +66,6 @@ public class TextPlugManager implements TextWatcher {
                 newText,
                 removedPart,
                 newPart,
-                previousRawText,
-                newRawText,
                 previousCursorPosition,
                 newCursorPosition);
 
@@ -89,12 +77,12 @@ public class TextPlugManager implements TextWatcher {
             }
         }
 
-        previousRawText = newRawText;
-
         editText.setText(data.getNewText());
         editText.setSelection(data.getNewCursorPosition());
         
         editText.addTextChangedListener(this);
+
+        newCursorPosition = data.getNewCursorPosition();
     }
 
     @Override

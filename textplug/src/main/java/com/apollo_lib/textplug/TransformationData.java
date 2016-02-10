@@ -9,18 +9,17 @@ public class TransformationData {
     private Editable newText;
     private String newPart;
     private String removedPart;
-    private String previousRawText;
-    private String newRawText;
     private int previousCursorPosition;
     private int newCursorPosition;
     private boolean stopTransformation = false;
+    private Editable.Factory editableFactory;
+
 
     private TextPlugManager manager;
 
     public TransformationData(TextPlugManager manager, EditText editText, Editable previousText,
                               Editable newText, String removedPart, String newPart,
-                              String previousRawText, String newRawText, int previousCursorPosition,
-                              int newCursorPosition) {
+                              int previousCursorPosition, int newCursorPosition) {
 
         this.manager = manager;
         this.editText = editText;
@@ -28,10 +27,10 @@ public class TransformationData {
         this.newText = newText;
         this.newPart = newPart;
         this.removedPart = removedPart;
-        this.previousRawText = previousRawText;
-        this.newRawText = newRawText;
         this.previousCursorPosition = previousCursorPosition;
         this.newCursorPosition = newCursorPosition;
+
+        editableFactory = new Editable.Factory();
     }
 
     public TextPlugManager getManager() {
@@ -43,7 +42,7 @@ public class TransformationData {
     }
 
     public Editable getPreviousText() {
-        return previousText;
+        return editableFactory.newEditable(previousText);
     }
 
     public Editable getNewText() {
@@ -56,14 +55,6 @@ public class TransformationData {
 
     public String getRemovedPart() {
         return removedPart;
-    }
-
-    public String getPreviousRawText() {
-        return previousRawText;
-    }
-
-    public String getNewRawText() {
-        return newRawText;
     }
 
     public int getPreviousCursorPosition() {
@@ -88,5 +79,17 @@ public class TransformationData {
 
     public void setCursorPosition(int position) {
         newCursorPosition = position;
+    }
+
+    public boolean inserting() {
+        return !newPart.isEmpty() && removedPart.isEmpty();
+    }
+
+    public boolean removing() {
+        return newPart.isEmpty() && !removedPart.isEmpty();
+    }
+
+    public boolean insertingAndRemoving() {
+        return !inserting() && !removing();
     }
 }

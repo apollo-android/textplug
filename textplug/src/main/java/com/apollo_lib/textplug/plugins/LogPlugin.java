@@ -15,12 +15,13 @@ public class LogPlugin implements TextPlugin {
     public enum TransformationDataProperty {
         RemovedPart,
         NewPart,
-        PreviousRawText,
-        NewRawText,
         PreviousText,
         NewText,
         PreviousCursorPosition,
-        NewCursorPosition
+        NewCursorPosition,
+        Inserting,
+        Removing,
+        InsertingAndRemoving
     }
 
     public LogPlugin() {
@@ -42,14 +43,6 @@ public class LogPlugin implements TextPlugin {
             Log.i(TAG, "NewPart: " + data.getNewPart().toString());
         }
 
-        if (properties.contains(TransformationDataProperty.PreviousRawText)) {
-            Log.i(TAG, "PreviousRawText: " + data.getPreviousRawText());
-        }
-
-        if (properties.contains(TransformationDataProperty.NewRawText)) {
-            Log.i(TAG, "NewRawText: " + data.getNewRawText());
-        }
-
         if (properties.contains(TransformationDataProperty.PreviousText)) {
             Log.i(TAG, "PreviousText: " + data.getPreviousText().toString());
         }
@@ -64,6 +57,18 @@ public class LogPlugin implements TextPlugin {
 
         if (properties.contains(TransformationDataProperty.NewCursorPosition)) {
             Log.i(TAG, "NewCursorPosition: " + data.getNewCursorPosition());
+        }
+
+        if (properties.contains(TransformationDataProperty.Inserting)) {
+            Log.i(TAG, "Inserting: " + (data.inserting() ? "true" : "false"));
+        }
+
+        if (properties.contains(TransformationDataProperty.Removing)) {
+            Log.i(TAG, "Removing: " + (data.removing() ? "true" : "false"));
+        }
+
+        if (properties.contains(TransformationDataProperty.InsertingAndRemoving)) {
+            Log.i(TAG, "InsertingAndRemoving: " + (data.insertingAndRemoving() ? "true" : "false"));
         }
 
         return data;
